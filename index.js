@@ -15,6 +15,12 @@ const dbConfig = require("./Service/DBconfig");
 dbConfig();
 
 
+//routes
+const routes = require("./Routes/userRoutes");
+app.use("/api", routes);
+
+
+
 app.use(express.json());
 app.use(cors());
 app.use(logger("dev"));
