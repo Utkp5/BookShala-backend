@@ -19,10 +19,10 @@ router.post("/Signup", async (req,res) => {
 
     try {
         
+        
+        const {firstName, lastName, userEmail, password, confirmPassword} = req.body;
         var hash = bcrypt.hashSync(req.body.password);
         var secondhash = bcrypt.hashSync(req.body.confirmPassword);
-
-        const {firstName, lastName, userEmail, password, confirmPassword} = req.body;
         const letters = /^[a-zA-Z]*$/;
         const oldUser = await User.findOne({userEmail});
 
@@ -40,7 +40,7 @@ router.post("/Signup", async (req,res) => {
         }
         else if (oldUser)
         {
-            return res.status(400).send('You are already exist..Please login')
+            return res.status(409).send('You are already exist..Please login')
         }
         else if(password !== confirmPassword)
         {
@@ -53,9 +53,9 @@ router.post("/Signup", async (req,res) => {
         else 
         {
             await User.create({
-                firstname : req.body.firstName,
-                lastame : req.body.lastName,
-                useremail :req.body.userEmail,
+                firstName : req.body.firstName,
+                lastName : req.body.lastName,
+                userEmail :req.body.userEmail,
                 password : hash,
                 confirmPassword : secondhash,
             })
