@@ -72,6 +72,33 @@ router.post("/Signup", async (req,res) => {
 
 
 //Login
+router.post("/Sigin", async(req,res) => {
+
+    try {
+        
+        const user = await User.findOne({userEmail : req.body.userEmail});
+        const check = bcrypt.compareSync(req.body.password, user.password);
+
+        if(!(user && check)) {
+            return res.status(401).send('Invalid Credentials')
+        }
+
+        const token = authFile.getToken(user._id);
+
+        return res.status(200).send({
+            token : token,
+            userID : user._id
+        });
+
+
+    } catch (error) {
+
+        console.log(error);
+    }
+});
+
+
+
 
 
 module.exports = router
