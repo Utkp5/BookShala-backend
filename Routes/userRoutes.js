@@ -72,7 +72,7 @@ router.post("/Signup", async (req,res) => {
 
 
 //Login
-router.post("/Sigin", async(req,res) => {
+router.post("/Signin", async(req,res) => {
 
     try {
         
@@ -86,11 +86,12 @@ router.post("/Sigin", async(req,res) => {
         const token = authFile.getToken(user._id);
 
         return res.status(200).send({
+            userID : user._id,
             token : token,
-            userID : user._id
+            "message" : "User login successfully"
         });
 
-
+        
     } catch (error) {
 
         console.log(error);
