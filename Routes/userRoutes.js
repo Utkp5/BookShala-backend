@@ -79,8 +79,13 @@ router.post("/Signin", async(req,res) => {
         const user = await User.findOne({userEmail : req.body.userEmail});
         const check = bcrypt.compareSync(req.body.password, user.password);
 
+
         if(!(user && check)) {
             return res.status(401).send('Invalid Credentials')
+        }
+        else if(user.length < 0)
+        {
+            return res.status(401).send('Email does not exist!');
         }
 
         const token = authFile.getToken(user._id);
