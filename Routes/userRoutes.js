@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 const User = require("../Models/user");
 const bcrypt = require('bcryptjs');
@@ -19,14 +19,24 @@ router.post("/Signup", async (req,res) => {
 
     try {
         
-        const {firstName,lastName,userEmail,password,confirmPassword} = req.body;
         var hash = bcrypt.hashSync(req.body.password);
         var secondhash = bcrypt.hashSync(req.body.confirmPassword);
+
+        const {firstName, lastName, userEmail, password, confirmPassword} = req.body;
+        const letters = /^[a-zA-Z]*$/;
         const oldUser = await User.findOne({userEmail});
 
         if(!(firstName && lastName && userEmail && password && confirmPassword))
         {
             return res.status(400).send("Something you are missing");
+        }
+        else if(!(firstName.match(letters)) || !(lastName.match(letters)))
+        {
+             return res.status(400).send('Name does not contain special characters')
+        }  
+        else if(firstName === lastName)
+        {
+            return res.status(400).send('firstname and lastname should not same')
         }
         else if (oldUser)
         {
@@ -43,9 +53,9 @@ router.post("/Signup", async (req,res) => {
         else 
         {
             await User.create({
-                firstName : firstName,
-                lastName : lastName,
-                userEmail : userEmail,
+                firstname : req.body.firstName,
+                lastame : req.body.lastName,
+                useremail :req.body.userEmail,
                 password : hash,
                 confirmPassword : secondhash,
             })
@@ -57,7 +67,11 @@ router.post("/Signup", async (req,res) => {
 
         console.log(error);
     }    
-})
+});
+
+
+
+//Login
 
 
 module.exports = router
