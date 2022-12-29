@@ -27,7 +27,9 @@ dbConfig();
 
 //routes
 const routes = require("./Routes/userRoutes");
+const frgtroutes = require("./Routes/forgotpassRoutes");
 app.use("/api", routes);
+app.use("/api/Forgotpassword",frgtroutes);
 
 
 
