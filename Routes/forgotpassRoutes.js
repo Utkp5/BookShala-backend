@@ -7,10 +7,11 @@ const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 
 
+
 const JWT_SECRET = "hvdvay6ert72839289()aiyg8t87qt72393293883uhefiuh78ttq3ifi78272jbkj?[]]pou89ywe";
 
 
-router.post("/Frgtpassword", async (req, res) => {
+router.post("/Forgotpassword", async (req, res) => {
     const { userEmail} = req.body;
     try {
       const oldUser = await User.findOne({userEmail});
@@ -23,6 +24,8 @@ router.post("/Frgtpassword", async (req, res) => {
       });
       const link = `http://localhost:5000/api/resetpassword/${oldUser._id}/${token}`;
       var transporter = nodemailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 465,
         service: 'gmail',
         auth: {
           user: process.env.GMAIL,
@@ -70,7 +73,7 @@ router.post("/Frgtpassword", async (req, res) => {
      const secret = JWT_SECRET + oldUser.password;
      try {
        const decoded = jwt.verify(token, secret);
-        res.render("index.ejs", { userEmail : decoded.userEmail,  status: "Not verified" });
+        res.render("../Handlebars/index.ejs", { userEmail : decoded.userEmail,  status: "Not verified" });
         // return res.json({status: "verified"})
      } catch (error) {
        console.log(error);
@@ -103,7 +106,7 @@ router.post("/Frgtpassword", async (req, res) => {
           },
         }
       );
-      res.render("index.ejs", { userEmail: decoded.userEmail, status: "verified" });
+      res.render("../Handlebars/index.ejs", { userEmail: decoded.userEmail, status: "verified" });
     } catch (error) {
       console.log(error);
       res.json({ status: "Something Went Wrong" });
