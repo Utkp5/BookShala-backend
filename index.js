@@ -27,11 +27,13 @@ dbConfig();
 
 //routes
 const routes = require("./Routes/userRoutes");
-const frgtroutes = require("./Routes/forgotpassRoutes");
 app.use("/api", routes);
+const frgtroutes = require("./Routes/forgotpassRoutes");
 app.use("/api/Forgotpassword",frgtroutes);
 
 
+//viewengine
+app.set("view engine", "ejs");
 
 
 
