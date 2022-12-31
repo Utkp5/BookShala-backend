@@ -9,7 +9,7 @@ const nodemailer = require("nodemailer");
 
 
 const JWT_SECRET = "hvdvay6ert72839289()aiyg8t87qt72393293883uhefiuh78ttq3ifi78272jbkj?[]]pou89ywe";
-
+var salt = bcrypt.genSalt(10);
 
 router.post("/Forgotpassword", async (req, res) => {
     const { userEmail} = req.body;
@@ -22,7 +22,7 @@ router.post("/Forgotpassword", async (req, res) => {
       const token = jwt.sign({ userEmail: oldUser.userEmail, userid : oldUser._id},secret, {
             expiresIn: "5m",
       });
-      const link = `http://localhost:5000/api/resetpassword/${oldUser._id}/${token}`;
+      const link = `http://localhost:5000/api/Forgotpass/resetpassword/${oldUser._id}/${token}`;
       var transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 465,
@@ -77,7 +77,7 @@ router.post("/Forgotpassword", async (req, res) => {
         // return res.json({status: "verified"})
      } catch (error) {
        console.log(error);
-      //  return res.json({status: "Not Verified"})
+    //    return res.json({status: "Not Verified"})
      }
 
   });
@@ -95,7 +95,7 @@ router.post("/Forgotpassword", async (req, res) => {
     const secret = JWT_SECRET + oldUser.password;
     try {
       const decoded = jwt.verify(token, secret);
-      const encryptedPassword = await bcrypt.hash(password, salt);
+      const encryptedPassword = await bcrypt.hash(password,salt);
       await User.updateOne(
         {
           _id: id,
@@ -106,7 +106,7 @@ router.post("/Forgotpassword", async (req, res) => {
           },
         }
       );
-      res.render("../Handlebars/index.ejs", { userEmail: decoded.userEmail, status: "verified" });
+      res.render("../Handlebars/index.ejs",{ userEmail: decoded.userEmail, status: "verified" });
     } catch (error) {
       console.log(error);
       res.json({ status: "Something Went Wrong" });

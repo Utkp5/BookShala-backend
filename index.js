@@ -6,6 +6,9 @@ const logger = require("morgan");
 
 
 
+//viewengine
+app.set("view engine", "ejs");
+app.use(express.urlencoded({ extended: false }));
 
 
 app.use(express.json());
@@ -31,9 +34,6 @@ app.use("/api", routes);
 const frgtroutes = require("./Routes/forgotpassRoutes");
 app.use("/api/Forgotpass",frgtroutes);
 
-
-//viewengine
-app.set("view engine", "ejs");
 
 
 
