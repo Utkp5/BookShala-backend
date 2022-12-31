@@ -22,6 +22,10 @@ const userSchema = new mongoose.Schema (
             type : String,
             require : true,
         },
+        avatar : {
+            type : String,
+            default : "https://img.freepik.com/premium-psd/character-avatar-3d-illustration_460336-706.jpg?w=740"
+        },
         booksbooked : [{
             type : String,
         }],

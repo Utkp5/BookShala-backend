@@ -88,6 +88,7 @@ router.post("/Signin", async (req,res) => {
             userID : user._id,
             token : token,
             firstName : user.firstName,
+            avatar : user.avatar,
             "message" : "User login successfully"
         });
 
@@ -96,9 +97,33 @@ router.post("/Signin", async (req,res) => {
     }
 });
 
+//fetch all user stored in database
+router.get("/getalluser", async (req,res) => {
+    try {
+        
+        const users = await User.find({});
+        return res.send(users);
+
+    } catch (error) {
+        console.log(error);
+    }
+})
 
 
 
+//delete user
+router.delete("/delete", async(req,res) => {
+    try {
+        
+        const id = req.body.id;
+        const z = await User.findByIdAndDelete(id);
+        const fname = z.firstName;
+        const lname = z.lastName
+        return res.send(`${fname} ${lname} Deleted Successfully`);
 
+    } catch (error) {
+        console.log(error);
+    }
+})
 
 module.exports = router
