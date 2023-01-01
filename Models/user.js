@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema (
         },
         avatar : {
             type : String,
-            default : "https://img.freepik.com/premium-psd/character-avatar-3d-illustration_460336-706.jpg?w=740"
+            default : "https://cdnb.artstation.com/p/assets/images/images/048/945/941/large/cgcm-s5.jpg?1651322092"
         },
         booksbooked : [{
             type : String,

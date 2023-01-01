@@ -88,6 +88,7 @@ router.post("/Signin", async (req,res) => {
             userID : user._id,
             token : token,
             firstName : user.firstName,
+            userEmail : user.userEmail,
             avatar : user.avatar,
             "message" : "User login successfully"
         });
