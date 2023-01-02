@@ -34,11 +34,15 @@ const bookSchema = new mongoose.Schema(
             type : Number,
             require : true,
         },
-        description : {
+        authorDescription : {
             type : String,
             require : true,
         },
-        summary : {
+        bookDescription : {
+            type : String,
+            require : true,
+        },
+        bookDesmore : {
             type : String,
             require : true,
         },

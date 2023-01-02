@@ -15,15 +15,15 @@ router.get("/justcheckbook", function (req,res) {
 
 
 //create book api
-router.post("/addBooks", authFile.authenticationChecker, async(req,res) => {
+router.post("/addBooks", async(req,res) => {
 
     try {
         
-        const {bookImg,bookTitle,bookAuthor,genres,language,rating,type,price,description,summary} = req.body;
+        const {bookImg,bookTitle,bookAuthor,genres,language,rating,type,price,authorDescription,bookDescription,bookDesmore} = req.body;
 
-        if (!(bookImg && bookTitle && bookAuthor && genres && language && rating && type && price && description && summary)) {
+        if (!(bookImg && bookTitle && bookAuthor && genres && language && rating && type && price && authorDescription && bookDescription && bookDesmore)) {
             
-            return res.status(401).send('Require all fields');
+            return res.status(405).send('Require all fields');
         }
         else{
 
@@ -36,8 +36,9 @@ router.post("/addBooks", authFile.authenticationChecker, async(req,res) => {
                 rating : rating,
                 type : type,
                 price : price,
-                description : description,
-                summary : summary,                
+                authorDescription : authorDescription,
+                bookDescription : bookDescription,   
+                bookDesmore : bookDesmore,             
             });
         }
 
@@ -53,7 +54,7 @@ router.post("/addBooks", authFile.authenticationChecker, async(req,res) => {
 
 
 //delete one book
-router.post("/deleteBook", authFile.authenticationChecker, async(req,res) => {
+router.delete("/deleteBook", async(req,res) => {
 
     try {
         
@@ -61,7 +62,7 @@ router.post("/deleteBook", authFile.authenticationChecker, async(req,res) => {
         const temp = await Book.findByIdAndDelete(id);
         const final = temp.bookTitle;
     
-        return res.status(200).send(`${final} deleted successfully`);
+        return res.status(200).send(`${final} book deleted successfully`);
 
     } catch (error) {
         
