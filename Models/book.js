@@ -38,7 +38,7 @@ const bookSchema = new mongoose.Schema(
             type : String,
             require : true,
         },
-        summery : {
+        summary : {
             type : String,
             require : true,
         },

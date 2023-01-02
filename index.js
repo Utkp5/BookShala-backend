@@ -28,12 +28,15 @@ const dbConfig = require("./Service/DBconfig");
 dbConfig();
 
 
-//routes
+//User routes
 const routes = require("./Routes/userRoutes");
 app.use("/api", routes);
+//forgot password routes
 const frgtroutes = require("./Routes/forgotpassRoutes");
 app.use("/api/Forgotpass",frgtroutes);
-
+//books routes
+const books = require("./Routes/booksRoutes");
+app.use("/api/books", books);
 
 
 
