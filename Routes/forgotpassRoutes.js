@@ -9,7 +9,7 @@ const nodemailer = require("nodemailer");
 
 
 const JWT_SECRET = "hvdvay6ert72839289()aiyg8t87qt72393293883uhefiuh78ttq3ifi78272jbkj?[]]pou89ywe";
-var salt = bcrypt.genSalt(10);
+// var salt = bcrypt.genSalt(10);
 
 router.post("/Forgotpassword", async (req, res) => {
     const { userEmail} = req.body;
@@ -93,10 +93,10 @@ router.post("/Forgotpassword", async (req, res) => {
     if (!oldUser) {
       return res.json({ status: "User Not Exists!!" });
     }
-    const secret = JWT_SECRET + oldUser.password;
+    // const secret = JWT_SECRET + oldUser.password;
     try {
-      const decoded = jwt.verify(token, secret);
-      const encryptedPassword = bcrypt.hash(password,salt);
+      const decoded = authFile.authenticationChecker;
+      const encryptedPassword = bcrypt.hash(password,10);
       await User.updateOne(
         {
           _id: id,
