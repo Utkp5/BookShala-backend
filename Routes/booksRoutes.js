@@ -88,6 +88,26 @@ router.get("/getBooks", async(req,res) => {
 
 })
 
+//find book by id
+router.get("/findbook/:bookid", async(req,res) => {
+
+    try {
+        
+        if (!Book) {
+            return res.status(401).send(`Your book not found!`);
+        }
+    
+        const bookid = req.params.bookid;
+    
+        const boook = await Book.findById(bookid);
+    
+        return res.status(200).send(boook);
+
+    } catch (error) {
+        console.log(error);
+    }
+
+})
 
 
 module.exports = router;
