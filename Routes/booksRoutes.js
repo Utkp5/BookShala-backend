@@ -19,15 +19,16 @@ router.post("/addBooks", async(req,res) => {
 
     try {
         
-        const {bookImg,bookTitle,bookAuthor,genres,language,rating,type,price,authorDescription,bookDescription,bookDesmore} = req.body;
+        const {id,bookImg,bookTitle,bookAuthor,genres,language,rating,type,price,authorDescription,authorImg,bookDescription,bookDesmore} = req.body;
 
-        if (!(bookImg && bookTitle && bookAuthor && genres && language && rating && type && price && authorDescription && bookDescription && bookDesmore)) {
+        if (!(id,bookImg && bookTitle && bookAuthor && genres && language && rating && type && price && authorDescription && authorImg && bookDescription && bookDesmore)) {
             
             return res.status(405).send('Require all fields');
         }
         else{
 
              await Book.create({
+                id : id,
                 bookImg : bookImg,
                 bookTitle : bookTitle,
                 bookAuthor : bookAuthor,
@@ -37,6 +38,7 @@ router.post("/addBooks", async(req,res) => {
                 type : type,
                 price : price,
                 authorDescription : authorDescription,
+                authorImg : authorImg,
                 bookDescription : bookDescription,   
                 bookDesmore : bookDesmore,             
             });

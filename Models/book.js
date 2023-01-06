@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 
 const bookSchema = new mongoose.Schema(
     {
+        id : {
+            type : Number,
+            require : true,
+        },
         bookImg : {
             type : String,
             require : true,
@@ -35,6 +39,10 @@ const bookSchema = new mongoose.Schema(
             require : true,
         },
         authorDescription : {
+            type : String,
+            require : true,
+        },
+        authorImg : {
             type : String,
             require : true,
         },
