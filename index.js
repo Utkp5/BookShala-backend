@@ -38,6 +38,9 @@ app.use("/api/Forgotpass",frgtroutes);
 //books routes
 const books = require("./Routes/booksRoutes");
 app.use("/api/books", books);
+//payment routes
+const paymentroutes = require("./Routes/payment");
+app.use("/api/payment",paymentroutes);
 
 
 
