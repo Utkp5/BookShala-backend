@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../Models/user");
+const Book = require("../Models/book");
 const bcrypt = require('bcryptjs');
 const authFile = require("../Service/authentication")
 
@@ -129,7 +130,7 @@ router.delete("/delete", async(req,res) => {
 
 
 
-//How many books purchased by user
+//books book by user
 router.post("/bookspurchase/:bookid", async(req,res) => {
     try {
         
@@ -145,7 +146,10 @@ router.post("/bookspurchase/:bookid", async(req,res) => {
             runValidators : true,
         });
 
-        return res.status(200).send(updatedUser);
+        const bookID = updatedUser.booksbooked;
+        const userName = updatedUser.firstName
+
+        return res.status(200).send(`${userName} is successfully purchased this book with id of : ${bookID}`);
         
 
     } catch (error) {
@@ -153,5 +157,22 @@ router.post("/bookspurchase/:bookid", async(req,res) => {
     }
 });
 
+
+
+
+//delete user book what he/she purchased not working
+// router.delete("/deleteuserbook/:bookid", async(req,res) => {
+
+//     const bookid = req.params.bookid;
+//     const userid = req.body.userid;
+
+//     const deleted = await User.findById(userid);
+//     const z = deleted.booksbooked
+//     const final = z.findByIdAndDelete(bookid);
+
+//     return res.send("deleted");
+        
+
+// })
 
 module.exports = router
