@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const Book = require("../Models/book");
-const User = require('../Models/user');
 const authFile = require('../Service/authentication');
 
 
@@ -112,30 +111,6 @@ router.get("/findbook/:bookid", async(req,res) => {
 
 })
 
-
-//How many books purchased by user
-router.post("/bookspurchase/:bookid", async(req,res) => {
-    try {
-        
-        const bookid = req.params.bookid;
-        const userid = req.body.userid;
-
-        const updatedUser = await User.findByIdAndUpdate(userid,{
-
-            $push : {booksbooked : bookid}
-        },
-        {
-            new : true,
-            runValidators : true,
-        });
-
-        return res.status(200).send(updatedUser);
-        
-
-    } catch (error) {
-        console.log(error);
-    }
-});
 
 
 

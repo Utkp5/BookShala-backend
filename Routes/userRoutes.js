@@ -2,8 +2,6 @@ const express = require("express");
 const router = express.Router();
 const User = require("../Models/user");
 const bcrypt = require('bcryptjs');
-const crypto = require('crypto');
-const razorpay = require('razorpay');
 const authFile = require("../Service/authentication")
 
 
@@ -98,6 +96,8 @@ router.post("/Signin", async (req,res) => {
     }
 });
 
+
+
 //fetch all user stored in database
 router.get("/getalluser", async (req,res) => {
     try {
@@ -126,5 +126,32 @@ router.delete("/delete", async(req,res) => {
         console.log(error);
     }
 })
+
+
+
+//How many books purchased by user
+router.post("/bookspurchase/:bookid", async(req,res) => {
+    try {
+        
+        const bookid = req.params.bookid;
+        const userid = req.body.userid;
+
+        const updatedUser = await User.findByIdAndUpdate(userid,{
+
+            $push : {booksbooked : bookid}
+        },
+        {
+            new : true,
+            runValidators : true,
+        });
+
+        return res.status(200).send(updatedUser);
+        
+
+    } catch (error) {
+        console.log(error);
+    }
+});
+
 
 module.exports = router
