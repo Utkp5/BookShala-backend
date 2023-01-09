@@ -10,7 +10,7 @@ router.post("/orders", async (req, res) => {
 		});
 
 		const options = {
-			amount: req.body.amount * 1,
+			amount: req.body.amount * 100,
 			currency: "INR",
 			receipt: crypto.randomBytes(10).toString("hex"),
 		};
