@@ -147,8 +147,7 @@ router.post("/bookspurchase/:bookid", async(req,res) => {
         });
 
         const bookID = updatedUser.booksbooked;
-        const userName = updatedUser.firstName
-
+        const userName = updatedUser.firstName;
         return res.status(200).send(`${userName} is successfully purchased this book with id of : ${bookID}`);
         
 
@@ -174,5 +173,6 @@ router.post("/bookspurchase/:bookid", async(req,res) => {
         
 
 // })
+
 
 module.exports = router
