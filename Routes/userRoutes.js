@@ -24,7 +24,7 @@ router.post("/Signup", async (req,res) => {
         var hash = bcrypt.hashSync(req.body.password);
         var secondhash = bcrypt.hashSync(req.body.confirmPassword);
         const letters = /^[a-zA-Z]*$/;
-        const rgemail = /^[a-zA-Z0-9._]+@[a-z]+\.[a-z]{2-6}&/
+        const rgemail = /^[a-zA-Z0-9._]+@[a-z]+\.[a-z]{2-6}&/ //email regx not working for me idont know why1
         const oldUser = await User.findOne({userEmail});
 
         if(!(firstName && lastName && userEmail && password && confirmPassword))
