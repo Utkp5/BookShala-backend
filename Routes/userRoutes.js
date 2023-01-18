@@ -23,6 +23,7 @@ router.post("/Signup", async (req,res) => {
         var hash = bcrypt.hashSync(req.body.password);
         var secondhash = bcrypt.hashSync(req.body.confirmPassword);
         const letters = /^[a-zA-Z]*$/;
+        const rgemail = /^[a-zA-Z0-9._]+@[a-z]+\.[a-z]{2-6}&/
         const oldUser = await User.findOne({userEmail});
 
         if(!(firstName && lastName && userEmail && password && confirmPassword))
@@ -32,7 +33,11 @@ router.post("/Signup", async (req,res) => {
         else if(!(firstName.match(letters)) || !(lastName.match(letters)))
         {
              return res.status(400).send('Name does not contain special characters')
-        }  
+        } 
+        else if(!userEmail.test(rgemail))
+        {
+            return res.status(400).send('Email is not correct!');
+        }
         else if(firstName === lastName)
         {
             return res.status(400).send('firstname and lastname should not same')
