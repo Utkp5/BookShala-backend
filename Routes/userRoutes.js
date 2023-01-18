@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("../Models/user");
 const Book = require("../Models/book");
+const emailvalidator = require('email-validator');
 const bcrypt = require('bcryptjs');
 const authFile = require("../Service/authentication")
 
@@ -34,7 +35,7 @@ router.post("/Signup", async (req,res) => {
         {
              return res.status(400).send('Name does not contain special characters')
         } 
-        else if(!userEmail.test(rgemail))
+        else if(!emailvalidator.validate(userEmail))
         {
             return res.status(400).send('Email is not correct!');
         }
